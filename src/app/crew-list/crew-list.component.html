@@ -1,0 +1,65 @@
+<div class="container mt-4">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Action Menu</th>
+        <th scope="col">First Name</th>
+        <th scope="col">Last Name</th>
+        <th scope="col">Nationality</th>
+        <th scope="col">Title</th>
+        <th scope="col">Days On Board</th>
+        <th scope="col">Daily Rate</th>
+        <th scope="col">Currency</th>
+        <th scope="col">Total Income</th>
+        <th scope="col">Certificates</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let crew of crews">
+        <td>
+          <div class="btn-group">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+              Actions
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#" (click)="viewCrewCard(crew)">Card Page</a></li>
+              <li><a class="dropdown-item" href="#" (click)="editCrew(crew)">Edit Page</a></li>
+              <li><a class="dropdown-item" href="#" (click)="deleteCrew(crew)">Delete Crew</a></li>
+            </ul>
+          </div>
+        </td>
+        <td>{{ crew.firstName }}</td>
+        <td>{{ crew.lastName }}</td>
+        <td>{{ crew.nationality }}</td>
+        <td>{{ crew.title }}</td>
+        <td>{{ crew.daysOnBoard }}</td>
+        <td>{{ crew.dailyRate }}</td>
+        <td>{{ crew.currency }}</td>
+        <td>{{ crew.totalIncome }}</td>
+        <td><button class="btn btn-info" (click)="viewCertificates(crew)">Certificates</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Modal for Certificates -->
+<div class="modal fade" id="certificatesModal" tabindex="-1" aria-labelledby="certificatesModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="certificatesModalLabel">Certificates</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <ul>
+          <li *ngFor="let certificate of selectedCrew?.certificates">
+            {{ certificate.certificateType }} ({{ certificate.issueDate }} - {{ certificate.expiryDate }})
+          </li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

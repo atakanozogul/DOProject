@@ -1,0 +1,77 @@
+<!-- Sidebar -->
+<div class="d-flex flex-column flex-shrink-0 p-3 bg-secondary vh-100">
+    <ul class="nav nav-pills flex-column mb-auto">
+      <li class="nav-item">
+        <a href="#" class="nav-link active text-white" aria-current="page">
+          <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"/></svg>
+          Home
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-link text-white" data-bs-toggle="modal" data-bs-target="#addCrewModal">
+          <svg class="bi me-2" width="16" height="16"><use xlink:href="#plus-circle"/></svg>
+          Add Crew
+        </a>
+      </li>
+    </ul>
+  </div>
+  
+  <!-- Add Crew Modal -->
+  <div class="modal fade" id="addCrewModal" tabindex="-1" aria-labelledby="addCrewModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addCrewModalLabel">Add Crew</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label for="firstName" class="form-label">First Name</label>
+              <input type="text" class="form-control" id="firstName">
+            </div>
+            <div class="mb-3">
+              <label for="lastName" class="form-label">Last Name</label>
+              <input type="text" class="form-control" id="lastName">
+            </div>
+            <div class="mb-3">
+              <label for="nationality" class="form-label">Nationality</label>
+              <input type="text" class="form-control" id="nationality">
+            </div>
+            <div class="mb-3">
+              <label for="title" class="form-label">Title</label>
+              <input type="text" class="form-control" id="title">
+            </div>
+            <div class="mb-3">
+              <label for="daysOnBoard" class="form-label">Days On Board</label>
+              <input type="number" class="form-control" id="daysOnBoard">
+            </div>
+            <div class="mb-3">
+              <label for="dailyRate" class="form-label">Daily Rate</label>
+              <input type="number" class="form-control" id="dailyRate">
+            </div>
+            <div class="mb-3">
+              <label for="currency" class="form-label">Currency</label>
+              <select class="form-select" id="currency">
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="certificateType" class="form-label">Certificate Type</label>
+              <input type="text" class="form-control" id="certificateType">
+            </div>
+            <div class="mb-3">
+              <label for="issueDate" class="form-label">Issue Date</label>
+              <input type="date" class="form-control" id="issueDate">
+            </div>
+            <div class="mb-3">
+              <label for="expiryDate" class="form-label">Expiry Date</label>
+              <input type="date" class="form-control" id="expiryDate">
+            </div>
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="addCrew()">Save</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

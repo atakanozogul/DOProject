@@ -1,15 +1,27 @@
-import { Component } from '@angular/core';
-import { CrewsComponent } from '../crews/crews.component';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { CrewListComponent } from '../crew-list/crew-list.component';
+import { SidebarComponent } from '../sidebar/sidebar.component';
+import { DataService } from '../services/data.service';
+import { Crew } from '../models/crew.model';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CrewsComponent],
+  imports: [CommonModule, CrewListComponent, SidebarComponent],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  styleUrls: ['./home.component.css']
 })
-export class HomeComponent {
-  constructor() {}
+export class HomeComponent implements OnInit {
+  crews: Crew[] = [];
 
-  ngOnInit() {}
+  constructor(private dataService: DataService) {}
+
+  ngOnInit(): void {
+    this.crews = this.dataService.getCrews();
+  }
+
+  onCrewAdded(newCrew: Crew): void {
+    this.crews.push(newCrew);
+  }
 }
