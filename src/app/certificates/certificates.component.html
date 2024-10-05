@@ -1,0 +1,24 @@
+<div class="container mt-4">
+    <h2>Certificate Types</h2>
+    <ul class="list-group mb-4">
+      <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let type of certificateTypes; let i = index">
+        <div>
+          <strong>{{ type.name }}</strong>: {{ type.description }}
+        </div>
+        <button class="btn btn-danger btn-sm" (click)="deleteCertificateType(i)">Delete</button>
+      </li>
+    </ul>
+  
+    <h3>Add New Certificate Type</h3>
+    <form (ngSubmit)="addCertificateType()">
+      <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <input type="text" class="form-control" id="name" [(ngModel)]="newCertificateType.name" name="name" required>
+      </div>
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <input type="text" class="form-control" id="description" [(ngModel)]="newCertificateType.description" name="description" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Add Certificate Type</button>
+    </form>
+  </div>

@@ -13,6 +13,12 @@
           Add Crew
         </a>
       </li>
+      <li>
+        <a href="#" class="nav-link text-white" [routerLink]="['/certificates']">
+          <svg class="bi me-2" width="16" height="16"><use xlink:href="#file-earmark-text"/></svg>
+          Certificates
+        </a>
+      </li>
     </ul>
   </div>
   
@@ -25,51 +31,54 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form>
+          <form (ngSubmit)="addCrew()">
             <div class="mb-3">
               <label for="firstName" class="form-label">First Name</label>
-              <input type="text" class="form-control" id="firstName">
+              <input type="text" class="form-control" id="firstName" required>
             </div>
             <div class="mb-3">
               <label for="lastName" class="form-label">Last Name</label>
-              <input type="text" class="form-control" id="lastName">
+              <input type="text" class="form-control" id="lastName" required>
             </div>
             <div class="mb-3">
               <label for="nationality" class="form-label">Nationality</label>
-              <input type="text" class="form-control" id="nationality">
+              <input type="text" class="form-control" id="nationality" required>
             </div>
             <div class="mb-3">
               <label for="title" class="form-label">Title</label>
-              <input type="text" class="form-control" id="title">
+              <input type="text" class="form-control" id="title" required>
             </div>
             <div class="mb-3">
               <label for="daysOnBoard" class="form-label">Days On Board</label>
-              <input type="number" class="form-control" id="daysOnBoard">
+              <input type="number" class="form-control" id="daysOnBoard" required>
             </div>
             <div class="mb-3">
               <label for="dailyRate" class="form-label">Daily Rate</label>
-              <input type="number" class="form-control" id="dailyRate">
+              <input type="number" class="form-control" id="dailyRate" required>
             </div>
             <div class="mb-3">
               <label for="currency" class="form-label">Currency</label>
-              <select class="form-select" id="currency">
+              <select class="form-select" id="currency" required>
                 <option value="USD">USD</option>
                 <option value="EUR">EUR</option>
+                <option value="GBP">GBP</option>
               </select>
             </div>
             <div class="mb-3">
               <label for="certificateType" class="form-label">Certificate Type</label>
-              <input type="text" class="form-control" id="certificateType">
+              <select class="form-select" id="certificateType" required>
+                <option *ngFor="let type of certificateTypes" [value]="type.name">{{ type.name }}</option>
+              </select>
             </div>
             <div class="mb-3">
               <label for="issueDate" class="form-label">Issue Date</label>
-              <input type="date" class="form-control" id="issueDate">
+              <input type="date" class="form-control" id="issueDate" required>
             </div>
             <div class="mb-3">
               <label for="expiryDate" class="form-label">Expiry Date</label>
-              <input type="date" class="form-control" id="expiryDate">
+              <input type="date" class="form-control" id="expiryDate" required>
             </div>
-            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="addCrew()">Save</button>
+            <button type="submit" class="btn btn-primary">Add Crew</button>
           </form>
         </div>
       </div>
