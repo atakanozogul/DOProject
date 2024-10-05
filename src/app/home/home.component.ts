@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CrewListComponent } from '../crew-list/crew-list.component';
-import { SidebarComponent } from '../sidebar/sidebar.component';
 import { DataService } from '../services/data.service';
 import { Crew } from '../models/crew.model';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, CrewListComponent, SidebarComponent],
+  imports: [CommonModule, CrewListComponent],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })

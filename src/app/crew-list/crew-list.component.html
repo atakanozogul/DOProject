@@ -40,25 +40,165 @@
       </tr>
     </tbody>
   </table>
+  <button class="btn btn-secondary mt-3" (click)="openCertificatesModal()">Manage Certificates</button>
+  <!-- Add Crew button and modal -->
+  <button class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#addCrewModal">Add Crew</button>
 </div>
 
 <!-- Modal for Certificates -->
-<div class="modal fade" id="certificatesModal" tabindex="-1" aria-labelledby="certificatesModalLabel" aria-hidden="true">
+<app-certificates></app-certificates>
+
+<!-- Modal for Adding Crew -->
+<div class="modal fade" id="addCrewModal" tabindex="-1" aria-labelledby="addCrewModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="certificatesModalLabel">Certificates</h5>
+        <h5 class="modal-title" id="addCrewModalLabel">Add Crew</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
+        <form (ngSubmit)="addCrew()">
+          <div class="mb-3">
+            <label for="firstName" class="form-label">First Name</label>
+            <input type="text" class="form-control" id="firstName" required>
+          </div>
+          <div class="mb-3">
+            <label for="lastName" class="form-label">Last Name</label>
+            <input type="text" class="form-control" id="lastName" required>
+          </div>
+          <div class="mb-3">
+            <label for="nationality" class="form-label">Nationality</label>
+            <input type="text" class="form-control" id="nationality" required>
+          </div>
+          <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" class="form-control" id="title" required>
+          </div>
+          <div class="mb-3">
+            <label for="daysOnBoard" class="form-label">Days On Board</label>
+            <input type="number" class="form-control" id="daysOnBoard" required>
+          </div>
+          <div class="mb-3">
+            <label for="dailyRate" class="form-label">Daily Rate</label>
+            <input type="number" class="form-control" id="dailyRate" required>
+          </div>
+          <div class="mb-3">
+            <label for="currency" class="form-label">Currency</label>
+            <select class="form-select" id="currency" required>
+              <option value="USD">USD</option>
+              <option value="EUR">EUR</option>
+              <option value="GBP">GBP</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="certificateType" class="form-label">Certificate Type</label>
+            <select class="form-select" id="certificateType" required>
+              <option *ngFor="let type of certificateTypes" [value]="type.name">{{ type.name }}</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="issueDate" class="form-label">Issue Date</label>
+            <input type="date" class="form-control" id="issueDate" required>
+          </div>
+          <div class="mb-3">
+            <label for="expiryDate" class="form-label">Expiry Date</label>
+            <input type="date" class="form-control" id="expiryDate" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Add Crew</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for Editing Crew -->
+<div class="modal fade" id="editCrewModal" tabindex="-1" aria-labelledby="editCrewModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editCrewModalLabel">Edit Crew</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" *ngIf="selectedCrew">
+        <form (ngSubmit)="saveCrew()">
+          <div class="mb-3">
+            <label for="editFirstName" class="form-label">First Name</label>
+            <input type="text" class="form-control" id="editFirstName" [(ngModel)]="selectedCrew.firstName" name="editFirstName" required>
+          </div>
+          <div class="mb-3">
+            <label for="editLastName" class="form-label">Last Name</label>
+            <input type="text" class="form-control" id="editLastName" [(ngModel)]="selectedCrew.lastName" name="editLastName" required>
+          </div>
+          <div class="mb-3">
+            <label for="editNationality" class="form-label">Nationality</label>
+            <input type="text" class="form-control" id="editNationality" [(ngModel)]="selectedCrew.nationality" name="editNationality" required>
+          </div>
+          <div class="mb-3">
+            <label for="editTitle" class="form-label">Title</label>
+            <input type="text" class="form-control" id="editTitle" [(ngModel)]="selectedCrew.title" name="editTitle" required>
+          </div>
+          <div class="mb-3">
+            <label for="editDaysOnBoard" class="form-label">Days On Board</label>
+            <input type="number" class="form-control" id="editDaysOnBoard" [(ngModel)]="selectedCrew.daysOnBoard" name="editDaysOnBoard" required>
+          </div>
+          <div class="mb-3">
+            <label for="editDailyRate" class="form-label">Daily Rate</label>
+            <input type="number" class="form-control" id="editDailyRate" [(ngModel)]="selectedCrew.dailyRate" name="editDailyRate" required>
+          </div>
+          <div class="mb-3">
+            <label for="editCurrency" class="form-label">Currency</label>
+            <select class="form-select" id="editCurrency" [(ngModel)]="selectedCrew.currency" name="editCurrency" required>
+              <option value="USD">USD</option>
+              <option value="EUR">EUR</option>
+              <option value="GBP">GBP</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="editTotalIncome" class="form-label">Total Income</label>
+            <input type="number" class="form-control" id="editTotalIncome" [(ngModel)]="selectedCrew.totalIncome" name="editTotalIncome" required>
+          </div>
+          <div class="mb-3">
+            <label for="editCertificates" class="form-label">Certificates</label>
+            <div *ngFor="let certificate of selectedCrew.certificates; let i = index">
+              <div class="input-group mb-3">
+                <select class="form-select" [(ngModel)]="certificate.certificateType" name="certificateType{{i}}" required>
+                  <option *ngFor="let type of certificateTypes" [value]="type.name">{{ type.name }}</option>
+                </select>
+                <input type="date" class="form-control" placeholder="Issue Date" [(ngModel)]="certificate.issueDate" name="issueDate{{i}}" required>
+                <input type="date" class="form-control" placeholder="Expiry Date" [(ngModel)]="certificate.expiryDate" name="expiryDate{{i}}" required>
+              </div>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Save Changes</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for Viewing Crew Card -->
+<div class="modal fade" id="viewCrewCardModal" tabindex="-1" aria-labelledby="viewCrewCardModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="viewCrewCardModalLabel">Crew Card</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" *ngIf="selectedCrew">
+        <p><strong>First Name:</strong> {{ selectedCrew.firstName }}</p>
+        <p><strong>Last Name:</strong> {{ selectedCrew.lastName }}</p>
+        <p><strong>Nationality:</strong> {{ selectedCrew.nationality }}</p>
+        <p><strong>Title:</strong> {{ selectedCrew.title }}</p>
+        <p><strong>Days On Board:</strong> {{ selectedCrew.daysOnBoard }}</p>
+        <p><strong>Daily Rate:</strong> {{ selectedCrew.dailyRate }}</p>
+        <p><strong>Currency:</strong> {{ selectedCrew.currency }}</p>
+        <p><strong>Total Income:</strong> {{ selectedCrew.totalIncome }}</p>
+        <p><strong>Certificates:</strong></p>
         <ul>
-          <li *ngFor="let certificate of selectedCrew?.certificates">
-            {{ certificate.certificateType }} ({{ certificate.issueDate }} - {{ certificate.expiryDate }})
+          <li *ngFor="let certificate of selectedCrew.certificates">
+            {{ certificate.certificateType }} - Issue Date: {{ certificate.issueDate }} - Expiry Date: {{ certificate.expiryDate }}
           </li>
         </ul>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
   </div>

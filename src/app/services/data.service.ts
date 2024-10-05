@@ -102,22 +102,29 @@ export class DataService {
     this.crews.push(crew);
   }
 
+  updateCrew(updatedCrew: Crew): void {
+    const index = this.crews.findIndex(c => c.id === updatedCrew.id);
+    if (index !== -1) {
+      this.crews[index] = updatedCrew;
+    }
+  }
+
+  deleteCrew(id: number): void {
+    const index = this.crews.findIndex(c => c.id === id);
+    if (index !== -1) {
+      this.crews.splice(index, 1);
+    }
+  }
+
   getCertificateTypes(): Certificate[] {
     return this.certificateTypes;
   }
 
-  addCertificateType(certificateType: Certificate): void {
-    this.certificateTypes.push(certificateType);
+  addCertificateType(certificate: Certificate): void {
+    this.certificateTypes.push(certificate);
   }
 
   deleteCertificateType(index: number): void {
     this.certificateTypes.splice(index, 1);
-  }
-
-  addCertificateToCrew(crewId: number, certificate: { certificateType: string; issueDate: string; expiryDate: string }): void {
-    const crew = this.crews.find(c => c.id === crewId);
-    if (crew) {
-      crew.certificates.push(certificate);
-    }
   }
 }
