@@ -80,33 +80,33 @@ export class CrewListComponent implements OnInit {
   }
 
   saveCrew(editCrewForm: NgForm): void {
-  if (editCrewForm.invalid) {
-    return;
-  }
+    if (editCrewForm.invalid) {
+      return;
+    }
 
-  if (!this.selectedCrew.firstName || !this.selectedCrew.lastName || !this.selectedCrew.nationality || !this.selectedCrew.title) {
-    return;
-  }
+    if (!this.selectedCrew.firstName || !this.selectedCrew.lastName || !this.selectedCrew.nationality || !this.selectedCrew.title) {
+      return;
+    }
 
-  this.selectedCrew.certificates = [...this.newCrewCertificates];
-  this.dataService.updateCrew(this.selectedCrew);
-  this.crews = this.dataService.getCrews();
-  this.calculateTotalIncomesByCurrency();
-  const editModal = bootstrap.Modal.getInstance(document.getElementById('editCrewModal'));
-  editModal.hide();
-  this.selectedCrew = {
-    id: 0,
-    firstName: '',
-    lastName: '',
-    nationality: '',
-    title: '',
-    daysOnBoard: 0,
-    dailyRate: 0,
-    currency: 'USD',
-    totalIncome: 0,
-    certificates: []
+    this.selectedCrew.certificates = [...this.newCrewCertificates];
+    this.dataService.updateCrew(this.selectedCrew);
+    this.crews = this.dataService.getCrews();
+    this.calculateTotalIncomesByCurrency();
+    const editModal = bootstrap.Modal.getInstance(document.getElementById('editCrewModal'));
+    editModal.hide();
+    this.selectedCrew = {
+      id: 0,
+      firstName: '',
+      lastName: '',
+      nationality: '',
+      title: '',
+      daysOnBoard: 0,
+      dailyRate: 0,
+      currency: 'USD',
+      totalIncome: 0,
+      certificates: []
+    }
   }
-}
 
   deleteCrew(crew: Crew): void {
     this.dataService.deleteCrew(crew.id);
@@ -123,11 +123,6 @@ export class CrewListComponent implements OnInit {
     } else {
       console.error('Crew not found');
     }
-  }
-
-  openCertificatesModal(): void {
-    const certificatesModal = new bootstrap.Modal(document.getElementById('certificatesModal'));
-    certificatesModal.show();
   }
 
   addCertificateType(addCertificateForm: NgForm): void {

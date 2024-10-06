@@ -1,9 +1,11 @@
 <app-navbar></app-navbar>
-<div class="row">
-    <div class="col-md-2">
-        <app-sidebar></app-sidebar>
+<div class="container-fluid h-100">
+  <div class="row h-100">
+    <div class="col-md-2 h-100 p-0">
+      <app-sidebar></app-sidebar>
     </div>
-    <div class="col-md-10">
-        <app-crew-list [crews]="crews"></app-crew-list>
+    <div class="col-md-10 h-100 p-0 overflow-auto">
+      <app-crew-list [crews]="crews"></app-crew-list>
     </div>
+  </div>
 </div>
