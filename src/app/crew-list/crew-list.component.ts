@@ -78,27 +78,34 @@ export class CrewListComponent implements OnInit {
     editModal.show();
   }
 
-  saveCrew(): void {
-    if (this.selectedCrew) {
-      this.selectedCrew.certificates = [...this.newCrewCertificates];
-      this.dataService.updateCrew(this.selectedCrew);
-      this.crews = this.dataService.getCrews();
-      const editModal = bootstrap.Modal.getInstance(document.getElementById('editCrewModal'));
-      editModal.hide();
-      this.selectedCrew = {
-        id: 0,
-        firstName: '',
-        lastName: '',
-        nationality: '',
-        title: '',
-        daysOnBoard: 0,
-        dailyRate: 0,
-        currency: 'USD',
-        totalIncome: 0,
-        certificates: []
-      }
-    }
+  saveCrew(editCrewForm: NgForm): void {
+  if (editCrewForm.invalid) {
+    return;
   }
+
+  if (!this.selectedCrew.firstName || !this.selectedCrew.lastName || !this.selectedCrew.nationality || !this.selectedCrew.title) {
+    return;
+  }
+
+  this.selectedCrew.certificates = [...this.newCrewCertificates];
+  this.dataService.updateCrew(this.selectedCrew);
+  this.crews = this.dataService.getCrews();
+  this.calculateTotalIncomesByCurrency();
+  const editModal = bootstrap.Modal.getInstance(document.getElementById('editCrewModal'));
+  editModal.hide();
+  this.selectedCrew = {
+    id: 0,
+    firstName: '',
+    lastName: '',
+    nationality: '',
+    title: '',
+    daysOnBoard: 0,
+    dailyRate: 0,
+    currency: 'USD',
+    totalIncome: 0,
+    certificates: []
+  }
+}
 
   deleteCrew(crew: Crew): void {
     this.dataService.deleteCrew(crew.id);
@@ -122,16 +129,21 @@ export class CrewListComponent implements OnInit {
     certificatesModal.show();
   }
 
-  addCertificateType(): void {
-    if (this.newCertificateType.name && this.newCertificateType.desc) {
+  addCertificateType(addCertificateForm: NgForm): void {
+    if (addCertificateForm.invalid) {
+      return;
+    }
+  
+    if (this.newCertificateType.name) {
       const newCertificate: Certificate = {
         id: Date.now(),
         name: this.newCertificateType.name,
-        desc: this.newCertificateType.desc
+        desc: this.newCertificateType.desc || ''
       };
       this.dataService.addCertificateType(newCertificate);
       this.newCertificateType = { name: '', desc: '' };
       this.certificateTypes = this.dataService.getCertificateTypes();
+      addCertificateForm.resetForm();
     }
   }
 
