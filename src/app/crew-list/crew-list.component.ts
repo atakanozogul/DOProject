@@ -35,13 +35,14 @@ export class CrewListComponent implements OnInit {
   crewCertificates: CrewCertificate[] = [];
   newCertificateType: Partial<Certificate> = { name: '', desc: '' };
   totalIncomesByCurrency: { [key: string]: number } = {};
-  
+  countries: string[] = [];
 
   constructor(private dataService: DataService) {}
 
   ngOnInit(): void {
     this.crews = this.dataService.getCrews();
     this.certificateTypes = this.dataService.getCertificateTypes();
+    this.countries = this.dataService.getCountries();
     this.calculateTotalIncomesByCurrency();
   }
 

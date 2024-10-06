@@ -118,7 +118,9 @@
           </div>
           <div class="mb-3">
             <label for="editNationality" class="form-label">Nationality</label>
-            <input type="text" class="form-control" id="editNationality" [(ngModel)]="selectedCrew.nationality" name="editNationality" required>
+            <select class="form-select" id="editNationality" [(ngModel)]="selectedCrew.nationality" name="editNationality" required>
+              <option *ngFor="let country of countries" [value]="country">{{ country }}</option>
+            </select>
             <div *ngIf="editCrewForm.submitted && !editCrewForm.controls['editNationality']?.valid" class="text-danger">
               Nationality is required.
             </div>
@@ -249,7 +251,9 @@
           </div>
           <div class="mb-3">
             <label for="nationality" class="form-label">Nationality</label>
-            <input type="text" class="form-control" id="nationality" name="nationality" ngModel required>
+            <select class="form-select" id="nationality" name="nationality" ngModel required>
+              <option *ngFor="let country of countries" [value]="country">{{ country }}</option>
+            </select>
             <div *ngIf="addCrewForm.submitted && !addCrewForm.controls['nationality']?.valid" class="text-danger">
               Nationality is required.
             </div>

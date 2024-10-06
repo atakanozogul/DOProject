@@ -94,6 +94,10 @@ export class DataService {
     { id: 7, name: 'Type G', desc: 'Description for Type G' }
   ];
 
+  private countries: string[] = [
+    'United States', 'Canada', 'United Kingdom', 'Australia', 'New Zealand', 'Germany', 'France', 'Italy', 'Spain', 'Japan'
+  ];
+
   getCrews(): Crew[] {
     return this.crews;
   }
@@ -131,5 +135,9 @@ export class DataService {
 
   deleteCertificateType(index: number): void {
     this.certificateTypes.splice(index, 1);
+  }
+
+  getCountries(): string[] {
+    return this.countries;
   }
 }
