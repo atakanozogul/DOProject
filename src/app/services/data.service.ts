@@ -8,19 +8,19 @@ import { Certificate } from '../models/certificate.model';
 export class DataService {
   private crews: Crew[] = [
     {
-        id: 1,
-        firstName: 'John',
-        lastName: 'Doe',
-        nationality: 'American',
-        title: 'Captain',
-        daysOnBoard: 120,
-        dailyRate: 200,
-        currency: 'USD',
-        totalIncome: 24000,
-        certificates: [
-          { certificateType: 'Type A', issueDate: '2021-01-01', expiryDate: '2023-01-01' },
-          { certificateType: 'Type B', issueDate: '2021-02-01', expiryDate: '2023-02-01' }
-        ]
+      id: 1,
+      firstName: 'John',
+      lastName: 'Doe',
+      nationality: 'American',
+      title: 'Captain',
+      daysOnBoard: 120,
+      dailyRate: 200,
+      currency: 'USD',
+      totalIncome: 24000,
+      certificates: [
+        { certificateId: 1, issueDate: '2021-01-01', expiryDate: '2023-01-01' },
+        { certificateId: 2, issueDate: '2021-02-01', expiryDate: '2023-02-01' }
+      ]
     },
     {
       id: 2,
@@ -33,8 +33,8 @@ export class DataService {
       currency: 'EUR',
       totalIncome: 16200,
       certificates: [
-        { certificateType: 'Type A', issueDate: '2021-01-01', expiryDate: '2023-01-01' },
-        { certificateType: 'Type B', issueDate: '2021-02-01', expiryDate: '2023-02-01' }
+        { certificateId: 1, issueDate: '2021-01-01', expiryDate: '2023-01-01' },
+        { certificateId: 2, issueDate: '2021-02-01', expiryDate: '2023-02-01' }
       ]
     },
     {
@@ -48,8 +48,8 @@ export class DataService {
       currency: 'USD',
       totalIncome: 9000,
       certificates: [
-        { certificateType: 'Type A', issueDate: '2021-01-01', expiryDate: '2023-01-01' },
-        { certificateType: 'Type B', issueDate: '2021-02-01', expiryDate: '2023-02-01' }
+        { certificateId: 1, issueDate: '2021-01-01', expiryDate: '2023-01-01' },
+        { certificateId: 2, issueDate: '2021-02-01', expiryDate: '2023-02-01' }
       ]
     },
     {
@@ -63,8 +63,8 @@ export class DataService {
       currency: 'EUR',
       totalIncome: 7650,
       certificates: [
-        { certificateType: 'Type A', issueDate: '2021-01-01', expiryDate: '2023-01-01' },
-        { certificateType: 'Type B', issueDate: '2021-02-01', expiryDate: '2023-02-01' }
+        { certificateId: 1, issueDate: '2021-01-01', expiryDate: '2023-01-01' },
+        { certificateId: 2, issueDate: '2021-02-01', expiryDate: '2023-02-01' }
       ]
     },
     {
@@ -78,24 +78,29 @@ export class DataService {
       currency: 'USD',
       totalIncome: 4200,
       certificates: [
-        { certificateType: 'Type A', issueDate: '2021-01-01', expiryDate: '2023-01-01' },
-        { certificateType: 'Type B', issueDate: '2021-02-01', expiryDate: '2023-02-01' }
+        { certificateId: 1, issueDate: '2021-01-01', expiryDate: '2023-01-01' },
+        { certificateId: 2, issueDate: '2021-02-01', expiryDate: '2023-02-01' }
       ]
     }
   ];
 
   private certificateTypes: Certificate[] = [
-    { name: 'Type A', description: 'Description for Type A' },
-    { name: 'Type B', description: 'Description for Type B' },
-    { name: 'Type C', description: 'Description for Type C' },
-    { name: 'Type D', description: 'Description for Type D' },
-    { name: 'Type E', description: 'Description for Type E' },
-    { name: 'Type F', description: 'Description for Type F' },
-    { name: 'Type G', description: 'Description for Type G' }
+    { id: 1, name: 'Type A', desc: 'Description for Type A' },
+    { id: 2, name: 'Type B', desc: 'Description for Type B' },
+    { id: 3, name: 'Type C', desc: 'Description for Type C' },
+    { id: 4, name: 'Type D', desc: 'Description for Type D' },
+    { id: 5, name: 'Type E', desc: 'Description for Type E' },
+    { id: 6, name: 'Type F', desc: 'Description for Type F' },
+    { id: 7, name: 'Type G', desc: 'Description for Type G' }
   ];
 
   getCrews(): Crew[] {
     return this.crews;
+  }
+
+  getCrewById(id: number): Crew | null {
+    const crew = this.crews.find(c => c.id === id);
+    return crew ? crew : null;
   }
 
   addCrew(crew: Crew): void {

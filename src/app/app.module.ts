@@ -7,18 +7,13 @@ import { CrewListComponent } from './crew-list/crew-list.component';
 import { DataService } from './services/data.service';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NavbarComponent,
-    SidebarComponent,
-    CrewListComponent
-  ],
+  declarations: [],
   imports: [
     BrowserModule,
     CrewListComponent,
-    NavbarComponent
+    NavbarComponent,
+    SidebarComponent
 ],
-  providers: [DataService],
-  bootstrap: [AppComponent]
+  providers: [DataService]
 })
 export class AppModule { }

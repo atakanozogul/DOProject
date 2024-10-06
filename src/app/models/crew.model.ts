@@ -1,4 +1,4 @@
-import { Certificate } from './certificate.model';
+import { CrewCertificate } from './crew-certificate.model';
 
 export interface Crew {
   id: number;
@@ -10,9 +10,5 @@ export interface Crew {
   dailyRate: number;
   currency: string;
   totalIncome: number;
-  certificates: {
-    certificateType: string;
-    issueDate: string;
-    expiryDate: string;
-  }[];
+  certificates: CrewCertificate[];
 }

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DataService } from '../services/data.service';
+import { Certificate } from '../models/certificate.model';
 
 @Component({
   selector: 'app-certificates',
@@ -11,19 +12,22 @@ import { DataService } from '../services/data.service';
   styleUrls: ['./certificates.component.css']
 })
 export class CertificatesComponent {
-  certificateTypes: any[] = [];
-  newCertificateType = { name: '', description: '' };
+  certificateTypes: Certificate[] = [];
+  newCertificateType: Partial<Certificate> = { name: '', desc: '' };
 
   constructor(private dataService: DataService) {
     this.certificateTypes = this.dataService.getCertificateTypes();
   }
 
   addCertificateType() {
-    this.dataService.addCertificateType({ ...this.newCertificateType });
-    this.newCertificateType = { name: '', description: '' };
+    if (this.newCertificateType.name && this.newCertificateType.desc) {
+      this.dataService.addCertificateType({ ...this.newCertificateType } as Certificate);
+      this.newCertificateType = { name: '', desc: '' };
+    }
   }
 
   deleteCertificateType(index: number) {
     this.dataService.deleteCertificateType(index);
+    this.certificateTypes = this.dataService.getCertificateTypes();
   }
 }
