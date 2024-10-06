@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { DataService } from '../services/data.service';
 import { Crew } from '../models/crew.model';
 import { Certificate } from '../models/certificate.model';
@@ -140,26 +140,33 @@ export class CrewListComponent implements OnInit {
     this.certificateTypes = this.dataService.getCertificateTypes();
   }
 
-  addCrew(): void {
+  addCrew(addCrewForm: NgForm): void {
+    if (addCrewForm.invalid) {
+      return;
+    }
+  
     const newCrew: Crew = {
       id: Date.now(),
-      firstName: (document.getElementById('firstName') as HTMLInputElement).value,
-      lastName: (document.getElementById('lastName') as HTMLInputElement).value,
-      nationality: (document.getElementById('nationality') as HTMLInputElement).value,
-      title: (document.getElementById('title') as HTMLInputElement).value,
-      daysOnBoard: +(document.getElementById('daysOnBoard') as HTMLInputElement).value,
-      dailyRate: +(document.getElementById('dailyRate') as HTMLInputElement).value,
-      currency: (document.getElementById('currency') as HTMLSelectElement).value,
-      totalIncome: +(document.getElementById('daysOnBoard') as HTMLInputElement).value * +(document.getElementById('dailyRate') as HTMLInputElement).value,
+      firstName: addCrewForm.value.firstName,
+      lastName: addCrewForm.value.lastName,
+      nationality: addCrewForm.value.nationality,
+      title: addCrewForm.value.title,
+      daysOnBoard: addCrewForm.value.daysOnBoard,
+      dailyRate: addCrewForm.value.dailyRate,
+      currency: addCrewForm.value.currency,
+      totalIncome: addCrewForm.value.daysOnBoard * addCrewForm.value.dailyRate,
       certificates: this.newCrewCertificates.map(cert => ({
         certificateId: cert.certificateId,
         issueDate: cert.issueDate,
         expiryDate: cert.expiryDate
       }))
     };
+  
     this.dataService.addCrew(newCrew);
     this.crews = this.dataService.getCrews();
+    this.calculateTotalIncomesByCurrency();
     this.newCrewCertificates = [];
+    addCrewForm.resetForm();
   }
 
   addCertificateField(): void {

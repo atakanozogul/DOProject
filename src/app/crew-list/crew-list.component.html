@@ -39,9 +39,9 @@
         <td><button class="btn btn-info" (click)="viewCertificates(crew)">Certificates</button></td>
       </tr>
       <tr *ngFor="let currency of getCurrencies()">
-        <td colspan="8" class="text-end"><strong>Total Income ({{ currency }}):</strong></td>
-        <td colspan="2">{{ totalIncomesByCurrency[currency] }}</td>
-      </tr>
+      <td colspan="8" class="text-end"><strong>Total Income ({{ currency }}):</strong></td>
+      <td colspan="2">{{ totalIncomesByCurrency[currency] }}</td>
+    </tr>
     </tbody>
   </table>
   <button class="btn btn-primary mt-3 btn-wide" (click)="openCertificatesModal()">Manage Certificates</button>
@@ -211,38 +211,59 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form (ngSubmit)="addCrew()">
+        <form #addCrewForm="ngForm" (ngSubmit)="addCrew(addCrewForm)">
           <div class="mb-3">
             <label for="firstName" class="form-label">First Name</label>
-            <input type="text" class="form-control" id="firstName" required>
+            <input type="text" class="form-control" id="firstName" name="firstName" ngModel required>
+            <div *ngIf="addCrewForm.submitted && !addCrewForm.controls['firstName']?.valid" class="text-danger">
+              First Name is required.
+            </div>
           </div>
           <div class="mb-3">
             <label for="lastName" class="form-label">Last Name</label>
-            <input type="text" class="form-control" id="lastName" required>
+            <input type="text" class="form-control" id="lastName" name="lastName" ngModel required>
+            <div *ngIf="addCrewForm.submitted && !addCrewForm.controls['lastName']?.valid" class="text-danger">
+              Last Name is required.
+            </div>
           </div>
           <div class="mb-3">
             <label for="nationality" class="form-label">Nationality</label>
-            <input type="text" class="form-control" id="nationality" required>
+            <input type="text" class="form-control" id="nationality" name="nationality" ngModel required>
+            <div *ngIf="addCrewForm.submitted && !addCrewForm.controls['nationality']?.valid" class="text-danger">
+              Nationality is required.
+            </div>
           </div>
           <div class="mb-3">
             <label for="title" class="form-label">Title</label>
-            <input type="text" class="form-control" id="title" required>
+            <input type="text" class="form-control" id="title" name="title" ngModel required>
+            <div *ngIf="addCrewForm.submitted && !addCrewForm.controls['title']?.valid" class="text-danger">
+              Title is required.
+            </div>
           </div>
           <div class="mb-3">
             <label for="daysOnBoard" class="form-label">Days On Board</label>
-            <input type="number" class="form-control" id="daysOnBoard" required>
+            <input type="number" class="form-control" id="daysOnBoard" name="daysOnBoard" ngModel required>
+            <div *ngIf="addCrewForm.submitted && !addCrewForm.controls['daysOnBoard']?.valid" class="text-danger">
+              Days On Board is required.
+            </div>
           </div>
           <div class="mb-3">
             <label for="dailyRate" class="form-label">Daily Rate</label>
-            <input type="number" class="form-control" id="dailyRate" required>
+            <input type="number" class="form-control" id="dailyRate" name="dailyRate" ngModel required>
+            <div *ngIf="addCrewForm.submitted && !addCrewForm.controls['dailyRate']?.valid" class="text-danger">
+              Daily Rate is required.
+            </div>
           </div>
           <div class="mb-3">
             <label for="currency" class="form-label">Currency</label>
-            <select class="form-select" id="currency" required>
+            <select class="form-select" id="currency" name="currency" ngModel required>
               <option value="USD">USD</option>
               <option value="EUR">EUR</option>
               <option value="GBP">GBP</option>
             </select>
+            <div *ngIf="addCrewForm.submitted && !addCrewForm.controls['currency']?.valid" class="text-danger">
+              Currency is required.
+            </div>
           </div>
           <div class="mb-3">
             <label for="addCertificates" class="form-label">Certificates</label>
@@ -253,7 +274,7 @@
               <input type="date" class="form-control mb-1" [(ngModel)]="newCrewCertificates[i].issueDate" name="newIssueDate{{i}}" required>
               <input type="date" class="form-control" [(ngModel)]="newCrewCertificates[i].expiryDate" name="newExpiryDate{{i}}" required>
             </div>
-            <button type="button" class="btn btn-secondary" (click)="addCertificateField()">Add Certificate</button>
+            <button type="button" class="btn btn-secondary d-block mt-2" (click)="addCertificateField()">Add Certificate</button>
           </div>
           <button type="submit" class="btn btn-primary">Add Crew</button>
         </form>
